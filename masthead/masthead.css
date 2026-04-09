@@ -1,0 +1,242 @@
+/* ===== Masthead page ===== */
+
+.masthead-page {
+  background: var(--bg);
+}
+
+.masthead-hero {
+  padding: 120px 0 50px;
+}
+
+.masthead-title {
+  margin: 0 0 12px;
+  color: var(--burgundy);
+  font-size: clamp(2.4rem, 5vw, 4.5rem);
+  line-height: 1;
+  letter-spacing: -0.04em;
+}
+
+.masthead-subtitle {
+  margin: 0;
+  color: var(--muted);
+  font-size: 1.08rem;
+}
+
+.masthead-grid-section {
+  padding: 30px 0 100px;
+}
+
+.masthead-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+}
+
+.masthead-card {
+  position: relative;
+  aspect-ratio: 5 / 6.7;
+  border: 1px solid #d9d0c5;
+  background: #ece5dc;
+  overflow: hidden;
+  cursor: pointer;
+  padding: 0;
+  text-align: left;
+  transition: transform 0.28s ease, box-shadow 0.28s ease;
+}
+
+.masthead-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.08);
+}
+
+.masthead-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  filter: saturate(92%);
+}
+
+.masthead-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(25, 18, 16, 0.68) 0%,
+    rgba(25, 18, 16, 0.34) 28%,
+    rgba(25, 18, 16, 0.12) 55%,
+    rgba(25, 18, 16, 0.05) 100%
+  );
+  transition: background 0.25s ease;
+}
+
+.masthead-card:hover .masthead-overlay {
+  background: linear-gradient(
+    to top,
+    rgba(25, 18, 16, 0.78) 0%,
+    rgba(25, 18, 16, 0.5) 30%,
+    rgba(25, 18, 16, 0.22) 58%,
+    rgba(25, 18, 16, 0.12) 100%
+  );
+}
+
+.masthead-card-text {
+  position: absolute;
+  left: 16px;
+  bottom: 16px;
+  right: 16px;
+  z-index: 2;
+}
+
+.masthead-card-text h3 {
+  margin: 0 0 4px;
+  color: #ffffff;
+  font-size: 1.15rem;
+  line-height: 1.15;
+  font-weight: 700;
+}
+
+.masthead-card-text p {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.92);
+  font-size: 0.95rem;
+  font-weight: 500;
+}
+
+/* ===== Modal ===== */
+
+.masthead-modal {
+  position: fixed;
+  inset: 0;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 3000;
+  padding: 24px;
+}
+
+.masthead-modal.active {
+  display: flex;
+}
+
+.masthead-modal-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(36, 32, 30, 0.46);
+  backdrop-filter: blur(8px);
+}
+
+.masthead-modal-content {
+  position: relative;
+  z-index: 1;
+  width: min(980px, 100%);
+  background: #f7f1e8;
+  border: 1px solid rgba(123, 30, 43, 0.08);
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.18);
+  padding: 34px;
+}
+
+.masthead-modal-close {
+  position: absolute;
+  top: 14px;
+  right: 16px;
+  border: none;
+  background: transparent;
+  color: #2b2423;
+  font-size: 2rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.masthead-modal-grid {
+  display: grid;
+  grid-template-columns: 320px 1fr;
+  gap: 34px;
+  align-items: center;
+}
+
+.masthead-modal-image-wrap {
+  width: 100%;
+  aspect-ratio: 5 / 6.7;
+  overflow: hidden;
+  background: #e8ded3;
+}
+
+.masthead-modal-image-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.modal-position-label {
+  margin: 0 0 12px;
+  color: var(--muted);
+  font-size: 0.88rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-weight: 700;
+}
+
+#modalName {
+  margin: 0 0 8px;
+  color: var(--burgundy);
+  font-size: clamp(2rem, 4vw, 3rem);
+  line-height: 1;
+  letter-spacing: -0.04em;
+}
+
+#modalPosition {
+  margin: 0 0 18px;
+  color: #403a37;
+  font-size: 1.12rem;
+  font-weight: 600;
+}
+
+#modalBio {
+  margin: 0;
+  color: var(--muted);
+  font-size: 1.05rem;
+  line-height: 1.8;
+}
+
+body.modal-open {
+  overflow: hidden;
+}
+
+@media (max-width: 1100px) {
+  .masthead-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 820px) {
+  .masthead-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .masthead-modal-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .masthead-modal-image-wrap {
+    max-width: 320px;
+  }
+}
+
+@media (max-width: 560px) {
+  .masthead-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .masthead-modal-content {
+    padding: 24px;
+  }
+
+  .masthead-card-text h3 {
+    font-size: 1.05rem;
+  }
+
+  .masthead-card-text p {
+    font-size: 0.9rem;
+  }
+}
