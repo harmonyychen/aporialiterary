@@ -1,0 +1,6 @@
+---
+import type {Issue} from '../data/content';
+interface Props {issue:Issue; archive?:boolean; latest?:boolean}
+const {issue,archive=false,latest=false}=Astro.props;
+---
+<article class="publication"><a class="cover-link" href={`/archive/${issue.id}/`} aria-label={`Read ${issue.title}`}><img class="cover" src={issue.cover} width="355" height="512" alt={`${issue.title} cover`} loading="lazy"/></a><div class="publication-details"><div class="publication-heading">{latest&&<p class="eyebrow">latest publication</p>}<h2>{issue.title}</h2></div><p class:list={['summary',{'editorial-summary':!archive}]}>{issue.summary}</p>{archive?<><a class="button outline" href={`/archive/${issue.id}/`}>Read publication</a><a class="button" href="/shop/">shop print edition</a></>:<div class="text-links"><a class="button" href="/shop/">shop volume 01</a><a class="button outline" href={`/archive/${issue.id}/`}>read online</a></div>}</div></article>

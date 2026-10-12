@@ -1,0 +1,27 @@
+{
+  "name": "aporia-literary-journal",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev --host 127.0.0.1",
+    "build": "astro build",
+    "build:production": "SITE_URL=https://aporialiterary.ca PUBLIC_LAUNCH_READY=true astro build",
+    "check": "astro check && tsc --noEmit -p tsconfig.worker.json",
+    "preview": "wrangler dev --ip 127.0.0.1 --port 4321",
+    "test": "node --experimental-strip-types --test tests/*.test.ts",
+    "deploy:preview": "npm run build && wrangler deploy --env preview",
+    "deploy:production": "npm run check && npm test && npm run build:production && wrangler deploy --env production"
+  },
+  "dependencies": {
+    "@astrojs/check": "^0.9.10",
+    "@fontsource-variable/montserrat": "^5.3.0",
+    "@fontsource-variable/playfair-display": "^5.3.0",
+    "astro": "^7.3.8",
+    "typescript": "^6.0.3",
+    "zod": "^4.6.6"
+  },
+  "devDependencies": {
+    "wrangler": "^4.149.0"
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "aporia-local",
+  "main": "worker/index.ts",
+  "compatibility_date": "2026-10-11",
+  "assets": {"directory":"./dist","binding":"ASSETS","not_found_handling":"404-page","run_worker_first":["/api/*"]},
+  "vars": {"CHECKOUT_ENABLED":"false","STRIPE_MODE":"test","SITE_URL":"http://localhost:4321","STRIPE_PRICE_MAP":"{\"volume-01\":\"price_1UPkotKWKnARJvwM3UvdjihQ\"}"},
+  "env": {
+    "preview": {"name":"aporia-preview","vars":{"CHECKOUT_ENABLED":"false","STRIPE_MODE":"test","SITE_URL":"","STRIPE_PRICE_MAP":"{\"volume-01\":\"price_1UPkotKWKnARJvwM3UvdjihQ\"}"}},
+    "production": {"name":"aporia","vars":{"CHECKOUT_ENABLED":"false","STRIPE_MODE":"live","SITE_URL":"https://aporialiterary.ca","STRIPE_PRICE_MAP":"{}"},"workers_dev":false}
+  }
+}

@@ -1,0 +1,9 @@
+---
+interface Props { photo?: boolean }
+const {photo=false}=Astro.props;
+---
+<header class:list={['site-header', { 'on-photo':photo }]}>
+  <button class="icon-button" data-open="cart" aria-label="Open cart" aria-haspopup="dialog" aria-controls="cart" aria-expanded="false"><img src={`/assets/cart${photo?'-light':''}.svg`} width="36" height="36" alt="" /><span class="cart-count" data-cart-count hidden></span></button>
+  <a class="monogram" href="/" aria-label="Aporia home"><img src={photo ? "/assets/monogram.png" : "/assets/monogram-burgundy.png"} width="52" height="44" alt="" /></a>
+  <button class="icon-button" data-open="menu" aria-label="Open navigation" aria-haspopup="dialog" aria-controls="menu" aria-expanded="false"><img src={`/assets/menu${photo?'-light':''}.svg`} width="36" height="36" alt="" /></button>
+</header>

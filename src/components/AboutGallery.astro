@@ -1,0 +1,60 @@
+---
+const photos=[
+  {file:'gallery-journal.webp',alt:'Three community members holding Aporia Volume 01 beside the journal poster'},
+  {file:'hero.png',alt:'A speaker at the Aporia launch event'},
+  {file:'hero-event.png',alt:'An audience listening to a reading at the Aporia launch'},
+  {file:'hero-publications.png',alt:'Copies of Aporia Volume 01 on display'},
+  {file:'gallery-conversation.webp',alt:'Guests talking and holding Aporia Volume 01'},
+  {file:'gallery-music.webp',alt:'A musician performing on acoustic guitar'},
+  {file:'gallery-cake.webp',alt:'A cake celebrating Aporia Volume 01'},
+  {file:'gallery-group.webp',alt:'Six community members holding gold APORIA balloons'},
+];
+---
+<section class="about-gallery" aria-label="Aporia photo gallery">
+  <div class="gallery-stage" tabindex="0" role="region" aria-label="Photos — swipe or use arrow keys to browse">
+    {photos.map((photo,index)=><img src={`/assets/${photo.file}`} width="1600" height="1067" alt={photo.alt} loading={index===0?'eager':'lazy'} draggable="false"/>)}
+  </div>
+  <div class="gallery-navigation">
+  <div class="gallery-thumbnails" aria-label="Choose a photo">
+    {photos.map((photo,index)=><button type="button" data-photo={index} aria-label={`Photo ${index+1}: ${photo.alt}`} aria-pressed={index===0}><img src={`/assets/${photo.file.split('.')[0]}-thumb.webp`} width="240" height="160" alt="" loading="lazy" draggable="false"/></button>)}
+  </div>
+  </div>
+  <p class="sr-only" aria-live="polite" data-gallery-status>Photo 1 of {photos.length}</p>
+</section>
+<script>
+  const gallery=document.querySelector<HTMLElement>('.about-gallery');
+  if(gallery){
+    const stage=gallery.querySelector<HTMLElement>('.gallery-stage')!;
+    const strip=gallery.querySelector<HTMLElement>('.gallery-thumbnails')!;
+    const buttons=[...strip.querySelectorAll<HTMLButtonElement>('button')];
+    const status=gallery.querySelector<HTMLElement>('[data-gallery-status]')!;
+    const motion=window.matchMedia('(prefers-reduced-motion: reduce)');
+    let current=0,frame=0;
+    const behavior=():ScrollBehavior=>motion.matches?'instant':'smooth';
+    const select=(index:number)=>stage.scrollTo({left:index*stage.clientWidth,behavior:behavior()});
+    buttons.forEach((button,index)=>button.addEventListener('click',()=>select(index)));
+    stage.addEventListener('keydown',event=>{
+      let next=current;
+      if(event.key==='ArrowRight')next=Math.min(current+1,buttons.length-1);
+      else if(event.key==='ArrowLeft')next=Math.max(current-1,0);
+      else if(event.key==='Home')next=0;
+      else if(event.key==='End')next=buttons.length-1;
+      else return;
+      event.preventDefault();select(next);
+    });
+    stage.addEventListener('scroll',()=>{
+      if(frame)return;
+      frame=requestAnimationFrame(()=>{
+        frame=0;
+        const index=Math.max(0,Math.min(buttons.length-1,Math.round(stage.scrollLeft/stage.clientWidth)));
+        if(index===current)return;
+        current=index;
+        buttons.forEach((button,i)=>button.setAttribute('aria-pressed',String(i===current)));
+        status.textContent=`Photo ${current+1} of ${buttons.length}`;
+        const button=buttons[current];
+        strip.scrollTo({left:button.offsetLeft-(strip.clientWidth-button.clientWidth)/2,behavior:behavior()});
+      });
+    },{passive:true});
+    new ResizeObserver(()=>stage.scrollTo({left:current*stage.clientWidth,behavior:'instant'})).observe(stage);
+  }
+</script>

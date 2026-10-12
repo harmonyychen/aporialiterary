@@ -1,0 +1,8 @@
+---
+import Layout from '../layouts/Layout.astro';
+import PageTitle from '../components/PageTitle.astro';
+import RefundPolicy from '../components/RefundPolicy.astro';
+import {editorial,formatPrice} from '../data/content';
+const ready = import.meta.env.PUBLIC_LAUNCH_READY === 'true';
+---
+<Layout title="Shop"><PageTitle title="shop" subtitle="print publications"/><section class="section shop-layout">{editorial.issues.map(issue=><article class="product"><img class="cover" src={issue.cover} width="355" height="512" alt={`${issue.title} cover`}/><h2>{issue.title}</h2><p>{issue.format}</p><p>{formatPrice(issue)}</p><RefundPolicy/><label class="quantity">Quantity <input type="number" min="1" max="20" step="1" value="1" data-quantity={issue.id}/></label><button class="button" data-add={issue.id}>Add to cart</button><a class="button outline" href={`/archive/${issue.id}/`}>read online</a>{!ready && <p class="notice">Development preview — live purchases are not enabled.</p>}</article>)}<img class="shop-photo" src="/assets/printed-copies.png" width="342" height="228" alt="Printed copies of Aporia Volume 01" loading="lazy"/></section></Layout>

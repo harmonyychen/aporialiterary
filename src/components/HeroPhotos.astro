@@ -1,0 +1,51 @@
+<div class="hero-photos" aria-hidden="true">
+  <img class="hero-photo is-active" src="/assets/hero.png" width="1600" height="1067" alt="" fetchpriority="high"/>
+  <img class="hero-photo" src="/assets/hero-event.png" width="1600" height="1066" alt="" decoding="async"/>
+  <img class="hero-photo" src="/assets/hero-publications.png" width="1600" height="1067" alt="" decoding="async"/>
+</div>
+<script>
+  const photos=[...document.querySelectorAll<HTMLImageElement>('.hero-photos .hero-photo')];
+  if(photos.length>1){
+    let current=0;
+    let timer:ReturnType<typeof setInterval>|undefined;
+    function schedule(){
+      clearInterval(timer);
+      if(!document.hidden)timer=setInterval(()=>{
+        const next=(current+1)%photos.length;
+        if(!photos[next].complete||!photos[next].naturalWidth)return;
+        photos[current].classList.remove('is-active');
+        photos[next].classList.add('is-active');
+        current=next;
+      },3000);
+    }
+    document.addEventListener('visibilitychange',schedule);
+    schedule();
+  }
+  const background=document.querySelector<HTMLElement>('.hero-photos');
+  const hero=background?.closest<HTMLElement>('.hero');
+  if(background&&hero){
+    const motion=window.matchMedia('(prefers-reduced-motion: reduce)');
+    let frame=0,currentOffset=0,targetOffset=0,lastTime=0;
+    const animate=(time:number)=>{
+      const elapsed=lastTime?Math.min(time-lastTime,64):16;
+      lastTime=time;
+      currentOffset+=(targetOffset-currentOffset)*(1-Math.exp(-elapsed/140));
+      if(Math.abs(targetOffset-currentOffset)<.1)currentOffset=targetOffset;
+      background.style.transform=`translate3d(0, ${-currentOffset}px, 0)`;
+      if(currentOffset!==targetOffset)frame=requestAnimationFrame(animate);
+      else{frame=0;lastTime=0;}
+    };
+    const update=()=>{
+      const bounds=hero.getBoundingClientRect();
+      targetOffset=motion.matches?0:Math.min(Math.max(-bounds.top,0)*.3,bounds.height*.2);
+      if(motion.matches){
+        cancelAnimationFrame(frame);frame=0;lastTime=0;currentOffset=0;
+        background.style.transform='translate3d(0, 0, 0)';
+      }else if(!frame)frame=requestAnimationFrame(animate);
+    };
+    window.addEventListener('scroll',update,{passive:true});
+    window.addEventListener('resize',update);
+    motion.addEventListener('change',update);
+    update();
+  }
+</script>

@@ -1,0 +1,7 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import {editorial} from '../../data/content';
+export function getStaticPaths(){return editorial.issues.map(issue=>({params:{id:issue.id},props:{issue}}));}
+const {issue}=Astro.props;
+---
+<Layout title={issue.title}><section class="section reader content-stack"><a href="/archive/">back to archive</a><h1>{issue.title}</h1>{issue.pdf?<><div class="text-links"><a class="button" href={issue.pdf} target="_blank" rel="noopener">Open PDF</a><a class="button outline" href={issue.pdf} download>Download PDF</a></div><p class="small">If the reader is unavailable on your device, use Open PDF or Download PDF.</p><iframe class="pdf-reader" src={issue.pdf} title={`${issue.title} PDF reader`} loading="lazy"></iframe></>:<><p class="notice">Development placeholder — the publication PDF has not been supplied. This is the cover preview only.</p><div class="reader-preview"><div class="reader-toolbar">Volume 01 <span>Cover preview</span></div><div class="reader-paper"><img src={issue.cover} width="500" height="721" alt={`${issue.title} cover preview`}/></div></div></>}</section></Layout>

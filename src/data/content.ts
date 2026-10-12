@@ -1,0 +1,10 @@
+import { z } from 'zod';
+import raw from './editorial.json';
+const asset = z.string().refine(v => /^\/(?!\/)/.test(v) || /^https:\/\//.test(v), 'Use a local absolute path or HTTPS URL');
+const issue = z.object({ id:z.string().regex(/^[a-z0-9-]+$/), title:z.string().min(1), cover:asset, summary:z.string().min(1), format:z.string(), priceMinor:z.number().int().positive().nullable(), currency:z.string().regex(/^[A-Z]{3}$/).nullable(), pdf:asset.nullable() }).refine(v=>(v.priceMinor===null)===(v.currency===null),'Price and currency must both be set or both be null');
+export const editorial = z.object({tagline:z.string(),email:z.email(),issues:z.array(issue).min(1),verses:z.array(z.object({lines:z.array(z.string()).min(1),credit:z.string()})),about:z.array(z.string()),masthead:z.array(z.object({name:z.string(),role:z.string(),biography:z.string().nullable()})),metrics:z.array(z.object({value:z.string(),label:z.string()})),submissions:z.object({status:z.enum(['open','closed','unconfirmed']),guidelines:z.array(z.string()),tallyFormId:z.string().regex(/^[a-zA-Z0-9]+$/).nullable()})}).parse(raw);
+if(new Set(editorial.issues.map(i=>i.id)).size!==editorial.issues.length) throw new Error('Duplicate issue identifiers');
+if(editorial.submissions.status==='open' && (!editorial.submissions.tallyFormId || !editorial.submissions.guidelines.length)) throw new Error('Open submissions require a Tally form and approved guidelines');
+export type Issue = z.infer<typeof issue>;
+export const navigation = [{label:'home',href:'/'},{label:'about',href:'/about/'},{label:'shop',href:'/shop/'},{label:'archive',href:'/archive/'},{label:'submit',href:'/submit/'}];
+export const formatPrice = (i:Issue) => i.priceMinor!==null && i.currency ? new Intl.NumberFormat('en-CA',{style:'currency',currency:i.currency}).format(i.priceMinor/100) + ' ' + i.currency : 'Price to confirm';

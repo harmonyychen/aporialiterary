@@ -1,0 +1,51 @@
+<div class="submission-guidelines">
+  <details>
+    <summary>Poetry &amp; Prose</summary>
+    <ul>
+      <li>We accept submissions from emerging and established Canadian writers between the ages of 15-30.</li>
+      <li>Please send us a short third-person bio under 50 words and indicate in the form if you wish to go by a pseudonym.</li>
+      <li>We accept poetry up to 50 lines, and prose up to 1000 words. When submitting, please include a line or word count for poetry or prose, respectively.</li>
+      <li>Each writer may submit up to three poems or prose pieces.</li>
+      <li>All submissions should not contain identifying information in the file itself.</li>
+    </ul>
+  </details>
+  <details>
+    <summary>Visual</summary>
+    <ul>
+      <li>Minimum 300 DPI quality.</li>
+      <li>Each artist may submit up to three pieces.</li>
+      <li>All submissions should not contain identifying information in the file itself.</li>
+    </ul>
+  </details>
+  <details open>
+    <summary>Other Information</summary>
+    <ul>
+      <li>An honorarium of <strong>$20</strong> per piece will be given to selected writers through e-transfer.</li>
+      <li>All submitters will be contacted within 2-3 months of the application deadline.</li>
+      <li>We encourage simultaneous submissions, but please let us know if your piece is accepted somewhere else.</li>
+    </ul>
+  </details>
+</div>
+<script>
+  const reducedMotion=window.matchMedia('(prefers-reduced-motion: reduce)');
+  document.querySelectorAll<HTMLDetailsElement>('.submission-guidelines details').forEach(details=>{
+    const summary=details.querySelector('summary')!;
+    const content=details.querySelector('ul')!;
+    let animation:Animation|null=null;
+    let expanded=details.open;
+    summary.setAttribute('aria-expanded',String(expanded));
+    summary.addEventListener('click',event=>{
+      event.preventDefault();
+      const start=details.getBoundingClientRect().height;
+      animation?.cancel();
+      expanded=!expanded;
+      summary.setAttribute('aria-expanded',String(expanded));
+      details.classList.toggle('is-closing',!expanded);
+      if(reducedMotion.matches){details.open=expanded;details.classList.remove('is-closing');return;}
+      details.open=true;
+      const end=summary.getBoundingClientRect().height+(expanded?content.getBoundingClientRect().height:0)+1;
+      animation=details.animate([{height:`${start}px`},{height:`${end}px`}],{duration:320,easing:'cubic-bezier(.22,.61,.36,1)'});
+      animation.onfinish=()=>{details.open=expanded;details.classList.remove('is-closing');animation=null;};
+    });
+  });
+</script>

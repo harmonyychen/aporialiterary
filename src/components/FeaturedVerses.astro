@@ -1,0 +1,37 @@
+---
+import {editorial} from '../data/content';
+---
+<section class="featured" aria-label="Featured verses" aria-roledescription="carousel" data-verses>
+  <p class="eyebrow">featured verses</p>
+  <div class="verse-slides">
+    {editorial.verses.map((verse, index) => <figure class:list={['verse-slide', {'is-active':index===0}]} aria-hidden={index!==0} role="group" aria-roledescription="slide" aria-label={`${index+1} of ${editorial.verses.length}`}>
+      <blockquote>“{verse.lines.map((line,i)=><>{i>0&&<br/>}{line}</>)}”</blockquote>
+      <figcaption>— {verse.credit}</figcaption>
+    </figure>)}
+  </div>
+  <div class="verse-controls" hidden>
+    {editorial.verses.map((verse,index)=><button class="verse-dot" data-verse={index} aria-label={`Show quote by ${verse.credit.split(',')[0]}`} aria-pressed={index===0}><span></span></button>)}
+  </div>
+</section>
+<script>
+  const carousel=document.querySelector<HTMLElement>('[data-verses]');
+  if(carousel){
+    const slides=[...carousel.querySelectorAll<HTMLElement>('.verse-slide')];
+    const dots=[...carousel.querySelectorAll<HTMLButtonElement>('[data-verse]')];
+    let current=0;
+    let timer:ReturnType<typeof setInterval>|undefined;
+    function show(index:number){
+      current=index;
+      slides.forEach((slide,i)=>{slide.classList.toggle('is-active',i===index);slide.setAttribute('aria-hidden',String(i!==index));});
+      dots.forEach((dot,i)=>dot.setAttribute('aria-pressed',String(i===index)));
+    }
+    function schedule(){
+      clearInterval(timer);
+      if(!document.hidden)timer=setInterval(()=>show((current+1)%slides.length),5000);
+    }
+    carousel.querySelector<HTMLElement>('.verse-controls')!.hidden=false;
+    dots.forEach((dot,i)=>dot.addEventListener('click',()=>{show(i);schedule();}));
+    document.addEventListener('visibilitychange',schedule);
+    schedule();
+  }
+</script>

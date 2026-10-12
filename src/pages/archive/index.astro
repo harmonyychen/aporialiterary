@@ -1,0 +1,7 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import PageTitle from '../../components/PageTitle.astro';
+import Publication from '../../components/Publication.astro';
+import {editorial} from '../../data/content';
+---
+<Layout title="Archive"><PageTitle title="archive" subtitle="past publications"/><section class="archive-list">{editorial.issues.map(issue=><Publication issue={issue} archive/>)}</section></Layout>

@@ -1,0 +1,15 @@
+---
+import Layout from '../layouts/Layout.astro';
+import PageTitle from '../components/PageTitle.astro';
+import {editorial} from '../data/content';
+---
+<Layout title="Order confirmation" noindex>
+ <PageTitle title="your order" subtitle="payment confirmation"/>
+ <section class="section content-stack">
+  <p id="payment-status" role="status" aria-live="polite">Checking your payment…</p>
+  <noscript><p>Enable JavaScript to check payment status, or contact Aporia with your Stripe receipt.</p></noscript>
+  <div><button id="payment-retry" class="button" hidden>Check payment again</button></div>
+  <p>For order questions, contact <a href={`mailto:${editorial.email}`}>{editorial.email}</a>.</p>
+  <div><a class="button outline" href="/shop/">Return to shop</a></div>
+ </section>
+</Layout>

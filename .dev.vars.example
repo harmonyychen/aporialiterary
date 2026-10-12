@@ -1,0 +1,7 @@
+# Copy to .dev.vars. This example is safe to commit; .dev.vars is ignored.
+# Enter the selected sandbox API credential only in the ignored copy.
+# Do not paste credentials into chat or use a PUBLIC_ variable.
+STRIPE_SECRET_KEY=
+# Enable only once the sandbox credential has been supplied.
+CHECKOUT_ENABLED=false
+STRIPE_MODE=test

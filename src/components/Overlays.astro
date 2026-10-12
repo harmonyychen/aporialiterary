@@ -1,0 +1,9 @@
+---
+import {editorial,navigation} from '../data/content';
+import RefundPolicy from './RefundPolicy.astro';
+const ready = import.meta.env.PUBLIC_LAUNCH_READY === 'true';
+---
+<div class="drawer-backdrop" data-backdrop aria-hidden="true"></div>
+<dialog id="menu" class="drawer menu-drawer" aria-label="Navigation"><div class="drawer-content"><button class="close-button" data-close aria-label="Close navigation"><span aria-hidden="true">×</span></button><nav aria-label="Main">{navigation.map(n=><a href={n.href} aria-current={(n.href==='/'?Astro.url.pathname==='/':Astro.url.pathname.startsWith(n.href))?'page':undefined}>{n.label}</a>)}</nav><hr/><div class="menu-contact"><h2>Get in Touch</h2><a href={`mailto:${editorial.email}`}>Email</a><a href="https://www.instagram.com/aporialiterary/" target="_blank" rel="noopener noreferrer">Instagram</a><a href="https://www.tiktok.com/@aporialiterary" target="_blank" rel="noopener noreferrer">TikTok</a></div></div></dialog>
+<dialog id="cart" class="drawer cart-drawer" aria-labelledby="cart-heading"><div class="drawer-content"><div class="drawer-heading"><h2 id="cart-heading">your cart</h2><button class="close-button" data-close aria-label="Close cart"><span aria-hidden="true">×</span></button></div><hr/><div id="cart-items"></div><div id="cart-empty"><p>Your cart is empty.</p><a class="button" href="/shop/">Browse shop</a></div><div id="cart-summary" hidden><hr/><p id="cart-subtotal"></p>{!ready && <p class="small">Development preview — live purchases are not enabled.</p>}<RefundPolicy/><button class="button" id="checkout">Checkout</button><p id="checkout-message" class="small" role="status"></p><button class="button outline" data-close>Continue shopping</button></div><p id="cart-announcement" class="sr-only" aria-live="polite"></p></div></dialog>
+<script id="catalog" type="application/json" set:html={JSON.stringify(editorial.issues).replace(/</g,'\\u003c')} />

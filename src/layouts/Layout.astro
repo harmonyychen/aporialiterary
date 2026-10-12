@@ -1,0 +1,11 @@
+---
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import Overlays from '../components/Overlays.astro';
+import '../styles/global.css';
+interface Props { title:string; description?:string; home?:boolean; noindex?:boolean }
+const {title,description='Aporia is a youth-led print and digital literary journal based in Toronto, Ontario.',home=false,noindex=false}=Astro.props;
+const ready = import.meta.env.PUBLIC_LAUNCH_READY==='true';
+const canonical = new URL(Astro.url.pathname,Astro.site);
+---
+<!doctype html><html lang="en"><head><meta charset="UTF-8"/><meta name="referrer" content="no-referrer"/><meta name="viewport" content="width=device-width, initial-scale=1"/><title>{title==='Home'?'Aporia Literary Journal':`${title} — Aporia`}</title><meta name="description" content={description}/><meta name="theme-color" content="#570e28"/><meta name="robots" content={!ready||noindex?'noindex, nofollow':'index, follow'}/><link rel="icon" type="image/png" href="/assets/monogram.png"/><link rel="canonical" href={canonical}/><meta property="og:title" content={`${title} — Aporia`}/><meta property="og:description" content={description}/><meta property="og:type" content="website"/><meta property="og:url" content={canonical}/><meta property="og:image" content={new URL('/assets/hero.png',Astro.site)}/><meta name="twitter:card" content="summary_large_image"/></head><body class:list={{"home-page":home}}><a class="skip-link" href="#main">Skip to content</a><Header photo={home}/><main id="main"><slot/></main><Footer/><Overlays/><noscript><nav class="no-js-nav" aria-label="Site navigation"><a href="/">Home</a><a href="/about/">About</a><a href="/shop/">Shop</a><a href="/archive/">Archive</a><a href="/submit/">Submit</a><p>Enable JavaScript to use the cart.</p></nav></noscript><script>import '../scripts/site';</script></body></html>

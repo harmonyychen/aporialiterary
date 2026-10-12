@@ -1,0 +1,8 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Publication from '../components/Publication.astro';
+import FeaturedVerses from '../components/FeaturedVerses.astro';
+import HeroPhotos from '../components/HeroPhotos.astro';
+import {editorial} from '../data/content';
+---
+<Layout title="Home" home><section class="hero" aria-labelledby="hero-title"><HeroPhotos/><div class="hero-intro"><h1 id="hero-title">aporia</h1><p>{editorial.tagline}</p></div><div class="hero-links text-links"><a class="button" href="/shop/">shop volume 01</a><a class="button outline" href="/submit/">submit your work</a></div></section><section class="latest"><Publication issue={editorial.issues[0]} latest/></section><FeaturedVerses/></Layout>

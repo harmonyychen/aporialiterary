@@ -1,0 +1,8 @@
+---
+import Layout from '../layouts/Layout.astro';
+import PageTitle from '../components/PageTitle.astro';
+import SubmissionGuidelines from '../components/SubmissionGuidelines.astro';
+import {editorial} from '../data/content';
+const s=editorial.submissions;
+---
+<Layout title="Submit"><PageTitle title="submit" subtitle="submit your work"/><section class="section submission-layout"><div class="content-stack"><h2>submission guidelines</h2>{s.status!=='unconfirmed'&&<p>{s.status==='open'?'Submissions are open.':'Submissions are closed.'}</p>}<SubmissionGuidelines/></div><div class="content-stack"><h2>your submission</h2>{s.status!=='closed'&&s.tallyFormId?<><iframe class="tally-form" src={`https://tally.so/embed/${s.tallyFormId}?alignLeft=1&hideTitle=1&transparentBackground=1`} title="Aporia manuscript submission form" loading="lazy"></iframe><a href={`https://tally.so/r/${s.tallyFormId}`} target="_blank" rel="noopener">Open the submission form in a new tab</a></>:<div class="submission-placeholder"><p class="eyebrow">FORM NOT CONNECTED</p><p>The submission form is not available in this preview.</p><p class="small">The intended form will collect your name, email, short biography, category, work title, manuscript, and agreement to the submission guidelines.</p><p class="small">No information or manuscripts can be submitted here.</p></div>}</div></section></Layout>

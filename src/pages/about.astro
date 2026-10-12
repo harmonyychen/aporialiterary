@@ -1,0 +1,7 @@
+---
+import Layout from '../layouts/Layout.astro';
+import PageTitle from '../components/PageTitle.astro';
+import AboutGallery from '../components/AboutGallery.astro';
+import {editorial} from '../data/content';
+---
+<Layout title="About"><PageTitle title="about" subtitle="our journal, masthead & metrics"/><section class="section about-grid"><div class="content-stack"><h2>about the journal</h2>{editorial.about.map(p=><p>{p}</p>)}</div><AboutGallery/></section><section class="section editorial-section"><h2>masthead</h2><hr/><div class="three-columns">{editorial.masthead.map(m=><article><h3>{m.name}</h3><p>{m.role}</p>{m.biography?<p>{m.biography}</p>:<p class="small pending">Biography pending.</p>}</article>)}</div></section><section class="section editorial-section"><h2>our metrics</h2><hr/><div class="three-columns">{editorial.metrics.map(m=><div><p class="metric">{m.value}</p><p>{m.label}</p></div>)}</div></section></Layout>

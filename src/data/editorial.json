@@ -1,0 +1,82 @@
+{
+  "tagline": "Redefining arts & literary publishing for youth across the globe.",
+  "email": "aporialiterary@gmail.com",
+  "issues": [
+    {
+      "id": "volume-01",
+      "title": "Aporia Volume 01",
+      "cover": "/assets/volume-01.png",
+      "summary": "Examining identity and belonging in relation to self, family, and the wider world, this issue grapples with the tensions young people live with every day — from culture to country and online discourse to real-world interaction.",
+      "format": "Print edition",
+      "priceMinor": 1750,
+      "currency": "CAD",
+      "pdf": null
+    }
+  ],
+  "verses": [
+    {
+      "lines": [
+        "L’enchevêtrement de mes langues",
+        "/ Is like the in between of seasons."
+      ],
+      "credit": "Sarah-Jeanne Leclerc, Aporia Vol. 01"
+    },
+    {
+      "lines": [
+        "The air which I breathe is not mine.",
+        "/ My preaching, unfamiliar."
+      ],
+      "credit": "Jenny Cai, Aporia Vol. 01"
+    },
+    {
+      "lines": [
+        "What is the value of words?",
+        "/ When the whistle of bombs becomes more familiar",
+        "/ Than of birds"
+      ],
+      "credit": "Garvey Hall-Maw, Aporia Vol. 01"
+    }
+  ],
+  "about": [
+    "Aporia is a literary journal dedicated to amplifying youth voices of Canadian youth through literary and visual arts.",
+    "We began with aporia [a logical contradiction or a philosophical, insoluble paradox] in its most familiar form: uncertainty. The kind that comes from scrolling through the news and seeing completely opposing narratives about the same event, the insincere doubt that arises when truth feels either fragmented or distorted. For many young people, these contradictions shape how we understand identity, belonging, and home.",
+    "Aporia exists to make space for that uncertainty, and encourages young writers to examine identity in relation to self, family, community, and the wider world. What happens when intent is misunderstood across generations? When an ordinary habit suddenly feels ritualistic? When trying to explain something personal reveals both connection and distance at once?",
+    "Through poetry, prose, and personal essays, Aporia publishes works that grapple with the tensions young people live with every day. From culture to country, online discourse to real-world settings, we believe that literature can be both beautiful and catalytic: a form of art, witness, and advocacy"
+  ],
+  "masthead": [
+    {
+      "name": "Nour Snani",
+      "role": "Co-Editor-in-Chief",
+      "biography": null
+    },
+    {
+      "name": "Lilah Warren",
+      "role": "Co-Editor-in-Chief",
+      "biography": null
+    },
+    {
+      "name": "Harmony Chen",
+      "role": "Managing Editor",
+      "biography": null
+    }
+  ],
+  "metrics": [
+    {
+      "value": "28",
+      "label": "Published contributors"
+    },
+    {
+      "value": "7",
+      "label": "Provinces represented"
+    },
+    {
+      "value": "200",
+      "label": "Print copies distributed"
+    }
+  ],
+  "submissions": {
+    "status": "unconfirmed",
+    "guidelines": [],
+    "tallyFormId": "Ekj6rq"
+  }
+}
